@@ -1,23 +1,88 @@
 <div class="signup-container">
     <mat-card>
-        <mat-card-header>
-            <mat-card-title>Sign Up</mat-card-title>
-        </mat-card-header>
+        <div class="card-header-content">
+            <h2>Create Your Account</h2>
+            <p>Join EventEase and start managing your events</p>
+        </div>
         <mat-card-content>
             <form (submit)="onSignup(); $event.preventDefault()">
-                <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Name</mat-label>
-                    <input matInput placeholder="Ex. John Doe" [(ngModel)]="name" name="name">
-                </mat-form-field>
-                <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Email</mat-label>
-                    <input matInput type="email" placeholder="Ex. pat@example.com" [(ngModel)]="email" name="email"
-                        required>
-                </mat-form-field>
-                <mat-form-field appearance="outline" class="full-width">
-                    <mat-label>Password</mat-label>
-                    <input matInput type="password" [(ngModel)]="password" name="password" required>
-                </mat-form-field>
+
+                <!-- Name Row -->
+                <div class="form-row three-col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>First Name</mat-label>
+                        <mat-icon matPrefix>person_outline</mat-icon>
+                        <input matInput placeholder="John" [(ngModel)]="firstName"
+                            (input)="firstName = $any($event.target).value" name="firstName" required>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Middle Name</mat-label>
+                        <mat-icon matPrefix>person_outline</mat-icon>
+                        <input matInput placeholder="Michael" [(ngModel)]="middleName"
+                            (input)="middleName = $any($event.target).value" name="middleName">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Last Name</mat-label>
+                        <mat-icon matPrefix>person_outline</mat-icon>
+                        <input matInput placeholder="Doe" [(ngModel)]="lastName"
+                            (input)="lastName = $any($event.target).value" name="lastName" required>
+                    </mat-form-field>
+                </div>
+
+                <!-- Email Row -->
+                <div class="form-row">
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Email Address</mat-label>
+                        <mat-icon matPrefix>mail_outline</mat-icon>
+                        <input matInput type="email" placeholder="john.doe@gmail.com" [(ngModel)]="email" name="email"
+                            required>
+                    </mat-form-field>
+                </div>
+
+                <!-- Phone Row -->
+                <div class="form-row">
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Phone Number</mat-label>
+                        <mat-icon matPrefix>phone</mat-icon>
+                        <input matInput placeholder="09123456789 or +639123456789" [(ngModel)]="phoneNumber"
+                            name="phoneNumber">
+                        <mat-hint>Enter exactly 11 digits (09123456789) or with country code (+639123456789)</mat-hint>
+                    </mat-form-field>
+                </div>
+
+                <!-- Password Row -->
+                <div class="form-row">
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Password</mat-label>
+                        <mat-icon matPrefix>lock_outline</mat-icon>
+                        <input matInput [type]="hidePassword ? 'password' : 'text'"
+                            placeholder="Create a strong password" [(ngModel)]="password" name="password" required>
+                        <button mat-icon-button matSuffix type="button" (click)="togglePassword($event)"
+                            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+                            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+
+                <!-- Confirm Password Row -->
+                <div class="form-row">
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Confirm Password</mat-label>
+                        <mat-icon matPrefix>lock_outline</mat-icon>
+                        <input matInput [type]="hideConfirmPassword ? 'password' : 'text'"
+                            placeholder="Confirm your password" [(ngModel)]="confirmPassword" name="confirmPassword"
+                            required>
+                        <button mat-icon-button matSuffix type="button" (click)="toggleConfirmPassword($event)"
+                            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
+                            <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+
+                <div class="terms-row">
+                    <mat-checkbox color="primary" [(ngModel)]="termsAccepted" name="termsAccepted">I agree to the <a
+                            href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a></mat-checkbox>
+                </div>
 
                 @if (errorMessage) {
                 <p class="error-text">{{ errorMessage }}</p>
@@ -27,8 +92,10 @@
                 }
 
                 <div class="actions">
-                    <button mat-flat-button color="primary" type="submit">Sign Up</button>
-                    <a routerLink="/login">Login</a>
+                    <button mat-flat-button color="primary" type="submit" class="submit-btn">Create Account</button>
+                    <div class="login-link">
+                        Already have an account? <a routerLink="/login">Sign in here</a>
+                    </div>
                 </div>
             </form>
         </mat-card-content>

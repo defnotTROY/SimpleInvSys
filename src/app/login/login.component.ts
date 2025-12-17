@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterModule, ActivatedRoute } from '@angular/router'; // Added ActivatedRoute
 import { FormsModule } from '@angular/forms';
 import { SupabaseService } from '../supabase.service';
 import { CommonModule } from '@angular/common';
@@ -14,15 +14,26 @@ import { CommonModule } from '@angular/common';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   email = '';
   password = '';
   errorMessage = '';
+  successMessage = ''; // Added
 
-  constructor(private router: Router, private supabaseService: SupabaseService) { }
+  constructor(private router: Router, private supabaseService: SupabaseService, private route: ActivatedRoute) { }
+
+  ngOnInit() {
+    // Check if redirected from successful signup
+    this.route.queryParams.subscribe(params => {
+      if (params['registered'] === 'true') {
+        this.successMessage = 'Sign up successful! You can log in now.';
+      }
+    });
+  }
 
   async onLogin() {
     this.errorMessage = '';
+    this.successMessage = ''; // Clear success message on login attempt
     const { data, error } = await this.supabaseService.signIn(this.email, this.password);
 
     if (error) {

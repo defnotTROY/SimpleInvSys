@@ -18,6 +18,9 @@
                 @if (errorMessage) {
                 <p class="error-text">{{ errorMessage }}</p>
                 }
+                @if (successMessage) {
+                <p class="success-text">{{ successMessage }}</p>
+                }
 
                 <div class="actions">
                     <button mat-flat-button color="primary" type="submit">Login</button>
