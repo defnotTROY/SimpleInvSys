@@ -5,13 +5,15 @@ import { SignupComponent } from './signup/signup.component';
 import { NavComponent } from './nav/nav.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdminComponent } from './admin/admin.component';
+import { UpdatePasswordComponent } from './login/update-password/update-password.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'login', component: LoginComponent },
   { path: 'sign-up', component: SignupComponent },
-  { 
-    path: 'nav', 
+  { path: 'update-password', component: UpdatePasswordComponent },
+  {
+    path: 'nav',
     component: NavComponent,
     children: [
       { path: 'dashboard', component: DashboardComponent },
