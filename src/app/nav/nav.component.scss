@@ -1,0 +1,15 @@
+.sidenav-container {
+  height: 100vh;
+}
+.sidenav {
+  width: 250px;
+}
+.spacer {
+  flex: 1 1 auto;
+}
+.content-padding {
+  padding: 20px;
+}
+.active-link {
+    background-color: rgba(0, 0, 0, 0.05);
+}
