@@ -4,7 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { NavComponent } from './nav/nav.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { AdminComponent } from './admin/admin.component';
+import { InventoryComponent } from './inventory/inventory.component';
 import { UpdatePasswordComponent } from './login/update-password/update-password.component';
 
 export const routes: Routes = [
@@ -17,7 +17,7 @@ export const routes: Routes = [
     component: NavComponent,
     children: [
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'admin', component: AdminComponent },
+      { path: 'inventory', component: InventoryComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },

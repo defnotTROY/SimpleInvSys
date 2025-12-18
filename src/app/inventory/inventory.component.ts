@@ -12,13 +12,13 @@ import { ConfirmationDialogComponent } from '../shared/confirmation-dialog/confi
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
-  selector: 'app-admin',
+  selector: 'app-inventory',
   standalone: true,
   imports: [CommonModule, MatTableModule, MatButtonModule, MatIconModule, MatDialogModule, MatTooltipModule],
-  templateUrl: './admin.component.html',
-  styleUrl: './admin.component.scss'
+  templateUrl: './inventory.component.html',
+  styleUrl: './inventory.component.scss'
 })
-export class AdminComponent implements OnInit {
+export class InventoryComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'quantity', 'price', 'actions'];
   inventory: any[] = [];
 
