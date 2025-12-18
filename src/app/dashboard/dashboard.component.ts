@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
-import { MatIconModule } from '@angular/material/icon'; // Added
+import { MatIconModule } from '@angular/material/icon';
 import { SupabaseService } from '../supabase.service';
 
 import { RouterModule } from '@angular/router';
@@ -16,7 +16,7 @@ import { RouterModule } from '@angular/router';
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'name', 'quantity', 'price', 'status']; // Added status
+  displayedColumns: string[] = ['id', 'name', 'quantity', 'price', 'status'];
   inventory: any[] = [];
 
   constructor(private supabaseService: SupabaseService) { }

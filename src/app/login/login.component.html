@@ -28,11 +28,7 @@
                     </mat-form-field>
                 </div>
 
-                <div class="options-row">
-                    <mat-checkbox color="primary" [(ngModel)]="rememberMe" name="rememberMe">Remember me</mat-checkbox>
-                    <a href="#" class="forgot-password" (click)="openForgotPasswordDialog($event)">Forgot your
-                        password?</a>
-                </div>
+
 
                 @if (errorMessage) {
                 <p class="error-text">{{ errorMessage }}</p>
