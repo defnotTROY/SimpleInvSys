@@ -6,10 +6,15 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { SupabaseService } from '../supabase.service';
 import { AddItemDialogComponent } from './add-item-dialog/add-item-dialog.component';
 
+import { CommonModule } from '@angular/common';
+import { ConfirmationDialogComponent } from '../shared/confirmation-dialog/confirmation-dialog.component';
+
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [MatTableModule, MatButtonModule, MatIconModule, MatDialogModule],
+  imports: [CommonModule, MatTableModule, MatButtonModule, MatIconModule, MatDialogModule, MatTooltipModule],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss'
 })
@@ -29,6 +34,19 @@ export class AdminComponent implements OnInit {
       console.error('Error fetching inventory:', error);
     } else {
       this.inventory = data || [];
+    }
+  }
+
+  async updateQuantity(item: any, change: number) {
+    const newQuantity = (item.quantity || 0) + change;
+    if (newQuantity < 0) return; // Prevent negative quantity
+
+    const { error } = await this.supabaseService.updateItem(item.id, { ...item, quantity: newQuantity });
+    if (error) {
+      console.error('Error updating quantity:', error);
+      alert('Failed to update quantity: ' + error.message);
+    } else {
+      await this.loadInventory(); // Refresh list to show updated quantity
     }
   }
 
@@ -58,15 +76,22 @@ export class AdminComponent implements OnInit {
     });
   }
 
+
   async deleteItem(id: number) {
-    if (confirm('Are you sure you want to delete this item?')) {
-      const { error } = await this.supabaseService.deleteItem(id);
-      if (error) {
-        console.error('Error deleting item:', error);
-        alert('Failed to delete item: ' + error.message);
-      } else {
-        await this.loadInventory(); // Refresh list
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: { title: 'Delete Item', message: 'Are you sure you want to delete this item?' }
+    });
+
+    dialogRef.afterClosed().subscribe(async (result) => {
+      if (result) {
+        const { error } = await this.supabaseService.deleteItem(id);
+        if (error) {
+          console.error('Error deleting item:', error);
+          alert('Failed to delete item: ' + error.message);
+        } else {
+          await this.loadInventory(); // Refresh list
+        }
       }
-    }
+    });
   }
 }

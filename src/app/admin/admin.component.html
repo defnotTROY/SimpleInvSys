@@ -27,13 +27,20 @@
         <!-- Price Column -->
         <ng-container matColumnDef="price">
             <th mat-header-cell *matHeaderCellDef> Price </th>
-            <td mat-cell *matCellDef="let element"> ${{element.price}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.price | currency:'PHP':'symbol':'1.2-2'}} </td>
         </ng-container>
 
         <!-- Actions Column -->
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef> Actions </th>
             <td mat-cell *matCellDef="let element">
+                <button mat-icon-button (click)="updateQuantity(element, -1)" [disabled]="element.quantity <= 0"
+                    matTooltip="Decrease Quantity">
+                    <mat-icon>remove</mat-icon>
+                </button>
+                <button mat-icon-button (click)="updateQuantity(element, 1)" matTooltip="Increase Quantity">
+                    <mat-icon>add</mat-icon>
+                </button>
                 <button mat-icon-button color="primary"
                     (click)="openAddItemDialog(element)"><mat-icon>edit</mat-icon></button>
                 <button mat-icon-button color="warn"
